@@ -30,7 +30,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if(authHeader != null && authHeader.startsWith("Bearer")) {
             jwt = authHeader.substring(7);
-            System.out.println(jwt);
             email = jwtUtil.getEmailFromToken(jwt);
         }
 
