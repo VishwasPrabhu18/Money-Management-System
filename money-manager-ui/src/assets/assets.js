@@ -1,4 +1,4 @@
-import logo from "./logo.png";
-import login_bg from "./login-bg.jpg";
+import logo from "./logo.jpg";
+import login_bg from "./login_bg.jpg";
 
-export default { logo, login_bg };
+export const assets = { logo, login_bg };
