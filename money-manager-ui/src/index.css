@@ -14,3 +14,25 @@ body {
 .text-primary-dark {
   @apply text-purple-700;
 }
+
+.add-btn {
+  @apply bg-green-200 text-green-700 font-semibold px-4 py-2 rounded-md hover:bg-green-300 transition duration-300 cursor-pointer flex items-center justify-center gap-2;
+}
+
+.add-btn-fill {
+  @apply bg-purple-700 text-white font-semibold px-4 py-2 rounded-md hover:bg-purple-800 transition duration-300 cursor-pointer;
+}
+
+.card {
+  @apply bg-white rounded-2xl p-6 mb-4 border border-transparent relative overflow-hidden;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+  transition: transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s .1s ease, background-color .25s ease;
+}
+
+.card-btn {
+  @apply bg-gray-100 text-gray-800 font-medium text-[16px] px-4 py-2 rounded-md hover:text-purple-800 transition duration-300 cursor-pointer flex items-center justify-center gap-2;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

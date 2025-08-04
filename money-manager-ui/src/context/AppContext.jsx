@@ -14,9 +14,16 @@ export const AppContextProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
 
+  const logout = () => {
+    localStorage.clear();
+    setUser(null);
+    window.location.href = "/login";
+  }
+
   const contextValue = {
     user,
     setUser,
+    logout,
   };
 
   return (

@@ -7,6 +7,8 @@ import axiosConfig from "../util/axiosConfig";
 import { API_ENDPOINTS } from "../util/apiEndpoints";
 import toast from "react-hot-toast";
 import { LoaderCircle } from "lucide-react";
+import ProfilePhotoSelector from "../components/ProfilePhotoSelector";
+import uploadProfileImage from "../util/uploadProfileImage";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -15,7 +17,10 @@ const Signup = () => {
     fullName: "",
     email: "",
     password: "",
+    profileImageUrl: "",
   });
+
+  const [profilePhoto, setProfilePhoto] = useState(null);
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -26,6 +31,12 @@ const Signup = () => {
     if (validateRegistration({ formData, setError })) {
       setIsLoading(true);
       try {
+        // upload image if present
+        if (profilePhoto) {
+          const imageUrl = await uploadProfileImage(profilePhoto);
+          formData.profileImageUrl = imageUrl;
+        }
+
         const res = await axiosConfig.post(API_ENDPOINTS.REGISTER, formData);
 
         if (res.status === 201) {
@@ -37,9 +48,20 @@ const Signup = () => {
         toast.error("An error occurred while creating your profile.");
         setError(error.message);
       } finally {
+        clearFormData();
         setIsLoading(false);
       }
     }
+  };
+
+  const clearFormData = () => {
+    setFormData({
+      fullName: "",
+      email: "",
+      password: "",
+      profileImageUrl: "",
+    });
+    setProfilePhoto(null);
   };
 
   return (
@@ -55,13 +77,16 @@ const Signup = () => {
           <h3 className="text-2xl font-semibold text-black text-center mb-2">
             Create an Account
           </h3>
-          <p className="text-xm text-slate-700 text-center mb-8">
+          <p className="text-xm text-slate-700 text-center">
             Start tracking your spendings by joining with us.
           </p>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
-            <div className="flex justify-center mb-6">
-              <img src={assets.logo} alt="logo" className="w-24 h-24" />
+            <div className="flex justify-center">
+              <ProfilePhotoSelector
+                image={profilePhoto}
+                setImage={setProfilePhoto}
+              />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Input
